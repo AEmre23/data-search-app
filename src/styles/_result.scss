@@ -1,0 +1,184 @@
+.result-wrapper{
+  padding: 30px;
+  display: flex;
+  min-height: 100vh;
+  justify-content: space-between;
+  align-items: flex-start;
+  .logo{
+    transition: all .2s ease-in-out;
+    &:hover{
+
+      scale: 1.05;
+    }
+  }
+  .result-area{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 10px;
+    overflow: hidden;
+    .result-input{
+      display: flex;
+      gap: 40px;
+      .search-input{
+        width: 575px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        transition: all .12s ease-in-out;
+        &:focus {
+          outline-color: $darkblue;
+        }
+        &:hover{
+          background-color: lightgray;
+        }
+      }
+      .search-button{
+        @include button
+      }
+    }
+    .results{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+      min-height: 300px;
+      .each-result{
+        max-width: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        padding: 30px;
+        border-top: 2px solid lightgray;
+        transition: all .2s ease-in-out;
+        &:hover{
+          background-color: $hoverblue;
+        }
+        .result-left{
+          display: flex;
+          gap: 15px;
+          align-items: center;
+          .people-name{
+            font-weight: 700;
+          }
+          .adress{
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+        .result-right{
+          text-align: right;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+    .pagination{
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      .decrease-button{
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 5px;
+        transition: all .15s ease-in-out;
+        padding: 3px 20px;
+        &:active{
+          scale:0.95;
+        }
+      }
+      .pagination-numbers{
+        display: flex;
+        gap: 5px;
+        .page-numbers{
+          cursor: pointer;
+          border: 1px solid black;
+          width: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 3px;
+          transition: all .1s ease;
+          &:hover{
+           scale: 1.03;
+          }
+        }
+        .dots{
+          font-size: 20px;
+          margin: 0 25px;
+          display: flex;
+          gap: 5px;
+        }
+      }
+      .increase-button{
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 5px;
+        transition: all .15s ease-in-out;
+        padding:3px 20px;
+        &:active {
+          scale: 0.95;
+        }
+      }
+    }
+  }
+  .sort-add-area{
+    margin-top: 10px;
+    .add-button{
+      .result-button{
+      @include button
+      }
+    }
+    .order-button{
+      margin-top: 95px;
+      position: relative;
+      .button-order{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 3px 15px;
+        font-family: $roboto;
+        font-weight: 500;
+        font-size: 17px;
+        border-radius: 10px;
+        border: 1px solid black;
+        gap: 5px;
+        transition: all .2s ease-out;
+        &:active{
+          scale: 0.97;
+        }
+      }
+      .sorting-ways{
+        scale: 0;
+        position: absolute;
+        top: 40px;
+        left: -5px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border: 2px solid gray;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        transition: all .15s ease-in-out;
+        transform-origin: top center;
+        .sort-buttons{
+          cursor: pointer;
+          border: none;
+          background-color: transparent;
+          font-family: $roboto;
+          font-weight: 500;
+          padding: 6px;
+          transition: all .1s ease-in-out;
+        }
+        .sorted-one{
+          background-color: gray;
+          border-radius: 6px;
+          color: white;
+        }
+      }
+    }
+  }
+}

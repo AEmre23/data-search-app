@@ -1,0 +1,124 @@
+.add-wrapper{
+  padding: 30px 60px;
+  .header{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    .company-logo{
+      transition: all .2s ease-in-out;
+      &:hover{
+        scale: 1.01;
+      }
+    }
+    .return-section{
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      gap: 20px;
+      font-size: 24px;
+      font-family: $roboto;
+      font-weight: 700;
+      transition: all .3s ease-in-out;
+      &:hover{
+        transform: translateX(-5px);
+      }
+    }
+  }
+  .addform{
+    width: 100%;
+    font-family: $roboto;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+    .form-inputs{
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      margin-left: 150px;
+      .form-area{
+        position: relative;
+        .form-label{
+          position: absolute;
+          top: -30px;
+          left: 10px;
+          font-size: 18px;
+        }
+        .form-input{
+          padding: 12px 22px;
+          width: 580px;
+          font-size: 17px;
+          border-radius: 8px;
+          transition: all .15s ease-in-out;
+          &:hover {
+            background-color: lightgray;
+          }
+          &:focus{
+            outline-color:$darkblue;
+          }
+        }
+      }
+    }
+    .submit-area{
+      margin-top: 30px;
+      margin-left: 670px;
+      display: flex;
+      .submit-button{
+        @include button;
+        padding-right: 40px;
+        padding-left: 40px;
+      }
+    }
+  }
+  .error-message{
+    scale: 0;
+    transform-origin: bottom right;
+    transition: all .2s ease-in-out;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #C4C4C4;
+    padding: 20px 30px;
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    opacity: 0.85;
+    max-width: 400px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .error-text-area{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .error-header{
+        font-weight: 700;
+      }
+      ul{
+        margin-left: -20px;
+        li{
+          margin-bottom: 5px;
+        }
+      }
+    }
+    .error-show{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .error-button{
+        padding: 6px 16px;
+        background-color: $error;
+        color: white;
+        border-radius: 18px;
+      }
+    }
+    .close-icon{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+      &:hover{
+        scale: 1.03;
+      }
+    }
+  }
+}

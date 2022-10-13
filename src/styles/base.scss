@@ -1,0 +1,13 @@
+@import './variables';
+@import './home';
+@import './result';
+@import './addLink';
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 16px;
+  font-family: $inter;
+  margin: 0;
+}
