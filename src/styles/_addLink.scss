@@ -67,6 +67,14 @@
         @include button;
         padding-right: 40px;
         padding-left: 40px;
+        &:disabled{
+          filter: brightness(0.7);
+          background-color: gray;
+          cursor: default;
+        }
+        &:disabled:active{
+          scale: 1;
+        }
       }
     }
   }

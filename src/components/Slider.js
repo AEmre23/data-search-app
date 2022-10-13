@@ -61,7 +61,7 @@ const Slider = () => {
       <div className="slider">
         {sliderContent.slice(slideView-3,slideView).map((each,i) => (
           <div className='content' key={i}>
-            <div className="content-image"><img src={each[0]} alt='slide-image'/></div>
+            <div className="content-image"><img src={each[0]} alt='slider-mockup'/></div>
             <div className="content-text">{each[1]}</div>
             <div className="content-subtext">{each[2]}</div>
           </div>

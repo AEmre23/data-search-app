@@ -1,11 +1,21 @@
-import React from 'react'
+import React,{useEffect,useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { PeopleContext } from '../context/PeopleContext'
 import Homelogo from '../assets/logo.png'
+// Components
 import SearchSection from '../components/SearchSection'
 import Slider from '../components/Slider'
 import Footer from '../components/Footer'
 
+
 const Home = () => {
+  const { setPeopleData, cloneData, setInputValue } = useContext(PeopleContext)
+
+  useEffect(() => {
+    setInputValue('')
+    setPeopleData(cloneData)
+  }, []);
+
   return (
     <div className='wrapper'>
       <main className="search-area">

@@ -1,7 +1,7 @@
 .result-wrapper{
   padding: 30px;
   display: flex;
-  min-height: 100vh;
+  min-height: 90vh;
   justify-content: space-between;
   align-items: flex-start;
   .logo{
@@ -11,6 +11,7 @@
       scale: 1.05;
     }
   }
+
   .result-area{
     display: flex;
     flex-direction: column;
@@ -159,7 +160,7 @@
         border: 2px solid gray;
         border-radius: 8px;
         padding: 10px;
-        display: flex;
+        display: none;
         flex-direction: column;
         gap: 5px;
         transition: all .15s ease-in-out;
@@ -179,6 +180,10 @@
           color: white;
         }
       }
+    }
+    .delete-button{
+      @include button;
+      margin-top: 30px;
     }
   }
 }

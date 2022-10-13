@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <div className="image-section">
-        <img src={mapImage} alt='footer-map-image' />
+        <img src={mapImage} alt='footer-map' />
       </div>
       <div className="adress-section">
         <div className="adress-header">

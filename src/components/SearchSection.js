@@ -1,4 +1,4 @@
-import React, { useContext,useState,useEffect,useRef } from 'react'
+import React, { useContext,useEffect,useRef } from 'react'
 import { PeopleContext } from '../context/PeopleContext'
 import { Link,useNavigate } from 'react-router-dom'
 import searchIcon from '../assets/search.png'
@@ -7,23 +7,23 @@ import locationIcon from '../assets/location.png'
 const SearchSection = () => {
   const { inputValue, setInputValue, peopleData, setPeopleData, cloneData } = useContext(PeopleContext)
   const searchInput = useRef()
+  const search = useRef()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    setInputValue('')
-  }, []);
 
   const inputHandler = (e) => {
     e.preventDefault()
     if (e.target.value.length >= 0) {
-      setInputValue(e.target.value.toLowerCase())
-      searchInput.current.style.borderColor='black'
+      setInputValue(e.target.value.trim().toLowerCase())
     }
   }
 
   const buttonHandler = (e) => {
     e.preventDefault()
-    if (inputValue.length === 0) searchInput.current.style.borderColor='red'
+    if (inputValue.length === 0) {
+      searchInput.current.style.borderColor = 'red'
+      search.current.classList.toggle('animate-icon')
+      searchInput.current.classList.toggle('animate-icon')
+    }
     else navigate('/result') 
   }
   const deleteLetter = (e) => {
@@ -46,7 +46,7 @@ const SearchSection = () => {
           <input onKeyDown={deleteLetter} autoFocus ref={searchInput} className='input-search' type='text' placeholder='...' />
           <button onClick={buttonHandler} className='submit-button' type='submit'>Search</button>
           <div className="search-icon">
-            <img src={searchIcon} alt='search-icon' />
+            <img ref={search} src={searchIcon} alt='search-icon' />
           </div>
         </form>
         {inputValue.length > 0 &&
@@ -72,7 +72,7 @@ const SearchSection = () => {
                 </div>
               </Link>
             }
-            {peopleData.length == 0 &&
+            {peopleData.length === 0 &&
               <div className="no-result">
                 <div>No result...</div>
               </div>

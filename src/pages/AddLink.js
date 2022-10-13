@@ -1,15 +1,19 @@
 import React,{useRef,useState,useEffect, useContext} from 'react'
-import { useNavigate,Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { PeopleContext } from '../context/PeopleContext'
+// Pictures
 import smallLogo from '../assets/small_logo.png'
 import returnIcon from '../assets/Arrow.png'
 import closeIcon from '../assets/close.png'
+// Functions
 import { validateEmail } from '../functions/emailValidation'
-import { PeopleContext } from '../context/PeopleContext'
+import { getDate } from '../functions/getDate'
+
 
 const AddLink = () => {
-  const {peopleData,setPeopleData,cloneData,setcloneData} = useContext(PeopleContext)
+  const {cloneData} = useContext(PeopleContext)
   const navigate = useNavigate()
-  const initialRender = useRef(true);
+  const initialRender = useRef(true); // This is for useEffect stops working on first render
   const errorMessage = useRef()
   const name = useRef()
   const country = useRef()
@@ -20,17 +24,32 @@ const AddLink = () => {
   const [validCity, setValidCity] = useState(false)
   const [validEmail, setValidEmail] = useState(false)
   const [errorCheck, setErrorCheck] = useState(false)
-  const [userInfo,setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState([])
+  const [counter,setCounter] = useState(0) // This checks if inputs are empty or not.Changing with onChange event.
 
 
   const returnPage = () => {
     navigate('/result')
   }
 
+  useEffect(() => {
+    // This checks if inputs are empty or not.Changing with onChange event.
+    // Button is disabled if there are no value on inputs.
+    var button = document.getElementsByClassName('submit-button')
+    var form = document.querySelector('.addform')
+    if (form[0].value.trim().length > 0 &&
+      form[1].value.trim().length > 0 &&
+      form[2].value.trim().length > 0 &&
+      form[3].value.trim().length > 0 )
+    {
+      button[0].removeAttribute('disabled')
+    }
+    else button[0].setAttribute('disabled', 'true')
+  },[counter]);
+
   const formHandler = (e) => {
     e.preventDefault()
-    if (e.target[0].value.length < 3 || e.target[0].value.length > 60) {
-      console.log(1)
+    if (e.target[0].value.trim().length < 4 || e.target[0].value.trim().length > 60) {
       setValidName(false)
       e.target[0].style.borderColor='red'
       e.target[0].previousElementSibling.style.color='red'
@@ -41,7 +60,7 @@ const AddLink = () => {
       e.target[0].previousElementSibling.style.color='black'
       name.current.style.display = 'none'
     }
-    if (e.target[1].value.length < 3 || e.target[1].value.length > 40) {
+    if (e.target[1].value.trim().length < 2 || e.target[1].value.trim().length > 40) {
       setValidCountry(false)
       e.target[1].style.borderColor='red'
       e.target[1].previousElementSibling.style.color='red'
@@ -52,7 +71,7 @@ const AddLink = () => {
       e.target[1].previousElementSibling.style.color='black'
       country.current.style.display = 'none'
     }
-    if (e.target[2].value.length < 3 || e.target[2].value.length > 40) {
+    if (e.target[2].value.trim().length < 2 || e.target[2].value.trim().length > 40) {
       setValidCity(false)
       e.target[2].style.borderColor='red'
       e.target[2].previousElementSibling.style.color='red'
@@ -86,25 +105,18 @@ const AddLink = () => {
     setErrorCheck(!errorCheck)
   }
 
-  function getDate() {
-    let date = new Date()
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    if (month < 10) month = `0${date.getMonth() + 1}`
-    let day = date.getDate()
-    return `${day}/${month}/${year}`
-  }
-
   useEffect(() => {
+    //  This is for useEffect stops working on first render
     if (initialRender.current) {
       initialRender.current = false;
     } else {
       errorMessage.current.style.scale = '1'
       if (validName && validCountry && validCity && validEmail) {
         errorMessage.current.innerHTML = 'Record successfully added.'
-        setPeopleData([...peopleData, userInfo])
-        setcloneData([...cloneData, userInfo])
-        setTimeout(() => {navigate('/result')},2000)
+        let newData = [...cloneData, userInfo]
+        localStorage.removeItem('persondata')
+        localStorage.setItem('persondata', JSON.stringify(newData))
+        setTimeout(() => { navigate('/result') ; window.location.reload() }, 2000)
       }
     }
   }, [errorCheck]);
@@ -123,34 +135,34 @@ const AddLink = () => {
       <form onSubmit={formHandler} className="addform">
         <div className="form-inputs">
           <div className="form-area">
-            <label className="form-label">Name Surname</label>
-            <input className='form-input' type='text' placeholder='Enter name and surname'/>
+            <label className="form-label">Name Surname*</label>
+            <input className='form-input' type='text' onChange={()=>setCounter(preValue=>preValue+1)} placeholder='Enter name and surname'/>
           </div>
           <div className="form-area">
-            <label className="form-label">Country</label>
-            <input className='form-input' type='text' placeholder='Enter a country'/>
+            <label className="form-label">Country*</label>
+            <input className='form-input' type='text' onChange={()=>setCounter(preValue=>preValue+1)} placeholder='Enter a country'/>
           </div>
           <div className="form-area">
-            <label className="form-label">City</label>
-            <input className='form-input' type='text' placeholder='Enter a city'/>
+            <label className="form-label">City*</label>
+            <input className='form-input' type='text' onChange={()=>setCounter(preValue=>preValue+1)} placeholder='Enter a city'/>
           </div>
           <div className="form-area">
-            <label className="form-label">Email</label>
-            <input className='form-input' type='text' placeholder='Enter an e-mail (abc@xyz.com)'/>
+            <label className="form-label">Email*</label>
+            <input className='form-input' type='text' onChange={()=>setCounter(preValue=>preValue+1)} placeholder='Enter an e-mail (abc@xyz.com)'/>
           </div>
         </div>
         <div className="submit-area">
-          <button className='submit-button' type='submit'>Add</button>
+          <button className='submit-button' type='submit' disabled>Add</button>
         </div>
       </form>
       <div ref={errorMessage} className="error-message">
         <div className="error-text-area">
           <div className="error-header">Error while adding link element</div>
           <ul>
-            <li ref={name}> Name and surname should contain only letters and at least 2 words.</li>
-            <li ref={country}>Country name should contain only letters and at least 2 words.</li>
-            <li ref={city}> City name should contain only letters and at least 2 words.</li>
-            <li ref={email}>Invalid email. </li>
+            <li ref={name}> Name and surname must contain only letters and must be at least 4 letters.</li>
+            <li ref={country}>Country name must contain only letters and must be at least 2 letters.</li>
+            <li ref={city}> City name must contain only letters and must be at least 2 letters.</li>
+            <li ref={email}>Invalid email.</li>
           </ul>
         </div>
         <div className="error-show">

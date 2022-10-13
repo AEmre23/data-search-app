@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from 'react'
+import React, { useContext,useEffect } from 'react'
 import { PeopleContext } from '../context/PeopleContext'
 
 const Pagination = ({
@@ -7,24 +7,30 @@ const Pagination = ({
   setCurrentPage,
   dataPerPage }) => {
   
-  const { inputValue, setInputValue, peopleData, setPeopleData, cloneData } = useContext(PeopleContext)
+  const { peopleData } = useContext(PeopleContext)
+  const pageNumbers123 = [1, 2, 3]
+
   const pageNumbers = []
+  // This 'for' loop calculates the page number and pushes it to 'pageNumbers' array.
   for (let a = 1; a <= Math.ceil(peopleData.length / dataPerPage); a++){
     pageNumbers.push(a)
   }
+
   const pageNumbersDotted = []
-  const pageNumbers123=[1,2,3]
+  // This 'for' loop pushes last 3 page number of data to 'pageNumbersDotted' array.
   for (let x = 2; x >= 0; x--){
     pageNumbersDotted.push(pageNumbers.at(-1) - x)
   }
+
   const pageIncrease = () => {
     if(currentPage!==pageNumbers.length) setCurrentPage(prevValue=>prevValue+1)
   }
   const pageDecrease = () => {
     if(currentPage!==1) setCurrentPage(prevValue=>prevValue-1)
-  
   }
+
   useEffect(() => {
+    // Mark the current page with blue color.
     let numbers = document.getElementsByName('pagenumbers')
     numbers.forEach((each) => {
       if (each.innerText == currentPage) {
