@@ -47,7 +47,7 @@ const AddLink = () => {
   },[counter]);
 
   const formHandler = (e) => {
-    const onlyString = /^[a-z]+$/i;
+    const onlyString = /^[a-z ]+$/i;
     e.preventDefault()
     let nameValue = e.target[0].value.trim()
     let countryValue = e.target[1].value.trim()
@@ -167,9 +167,9 @@ const AddLink = () => {
         <div className="error-text-area">
           <div className="error-header">Error while adding link element</div>
           <ul>
-            <li ref={name}> Name and surname must contain only letters and must be at least 4 letters.</li>
-            <li ref={country}>Country name must contain only letters and must be at least 2 letters.</li>
-            <li ref={city}> City name must contain only letters and must be at least 2 letters.</li>
+            <li ref={name}>Name and surname must contain only English letters and must be at least 4 letters.</li>
+            <li ref={country}>Country name must contain only English letters and must be at least 2 letters.</li>
+            <li ref={city}>City name must contain only English letters and must be at least 2 letters.</li>
             <li ref={email}>Invalid email.</li>
           </ul>
         </div>
