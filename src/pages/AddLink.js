@@ -27,7 +27,6 @@ const AddLink = () => {
   const [userInfo, setUserInfo] = useState([])
   const [counter,setCounter] = useState(0) // This checks if inputs are empty or not.Changing with onChange event.
 
-
   const returnPage = () => {
     navigate('/result')
   }
@@ -48,8 +47,14 @@ const AddLink = () => {
   },[counter]);
 
   const formHandler = (e) => {
+    const onlyString = /^[a-z]+$/i;
     e.preventDefault()
-    if (e.target[0].value.trim().length < 4 || e.target[0].value.trim().length > 60) {
+    let nameValue = e.target[0].value.trim()
+    let countryValue = e.target[1].value.trim()
+    let cityValue = e.target[2].value.trim()
+    let emailValue = e.target[3].value.trim()
+
+    if (nameValue.match(onlyString) === null || nameValue.length < 4 || nameValue.length > 60) {
       setValidName(false)
       e.target[0].style.borderColor='red'
       e.target[0].previousElementSibling.style.color='red'
@@ -60,7 +65,7 @@ const AddLink = () => {
       e.target[0].previousElementSibling.style.color='black'
       name.current.style.display = 'none'
     }
-    if (e.target[1].value.trim().length < 2 || e.target[1].value.trim().length > 40) {
+    if (countryValue.match(onlyString) === null || countryValue.length < 2 || countryValue.length > 40) {
       setValidCountry(false)
       e.target[1].style.borderColor='red'
       e.target[1].previousElementSibling.style.color='red'
@@ -71,7 +76,7 @@ const AddLink = () => {
       e.target[1].previousElementSibling.style.color='black'
       country.current.style.display = 'none'
     }
-    if (e.target[2].value.trim().length < 2 || e.target[2].value.trim().length > 40) {
+    if (cityValue.match(onlyString) === null || cityValue.length < 2 || cityValue.length > 40) {
       setValidCity(false)
       e.target[2].style.borderColor='red'
       e.target[2].previousElementSibling.style.color='red'
@@ -82,7 +87,7 @@ const AddLink = () => {
       e.target[2].previousElementSibling.style.color='black'
       city.current.style.display = 'none'
     }
-    if (!validateEmail(e.target[3].value)) {
+    if (!validateEmail(emailValue)) {
       setValidEmail(false)
       e.target[3].style.borderColor='red'
       e.target[3].previousElementSibling.style.color='red'
@@ -116,7 +121,10 @@ const AddLink = () => {
         let newData = [...cloneData, userInfo]
         localStorage.removeItem('persondata')
         localStorage.setItem('persondata', JSON.stringify(newData))
-        setTimeout(() => { navigate('/result') ; window.location.reload() }, 2000)
+        setTimeout(() => {
+          navigate('/result')
+          window.location.reload()
+        }, 2000)
       }
     }
   }, [errorCheck]);
