@@ -55,26 +55,28 @@ const Slider = () => {
   }
 
   return (
-    <>
-    <div className="slider-header">Top News</div>
-    <div className="slider-wrapper">
-      <div className="slider">
-        {sliderContent.slice(slideView-3,slideView).map((each,i) => (
-          <div className='content' key={i}>
-            <div className="content-image"><img src={each[0]} alt='slider-mockup'/></div>
-            <div className="content-text">{each[1]}</div>
-            <div className="content-subtext">{each[2]}</div>
+    <div className='slider-container'>
+      <div>
+        <div className="slider-header">Top News</div>
+        <div className="slider-wrapper">
+          <div className="slider">
+            {sliderContent.slice(slideView-3,slideView).map((each,i) => (
+              <div className='content' key={i}>
+                <div className="content-image"><img src={each[0]} alt='slider-mockup'/></div>
+                <div className="content-text">{each[1]}</div>
+                <div className="content-subtext">{each[2]}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div onClick={goPrevious} className="previous-button">
-        <img src={navigator} alt='navigate-icon' />
-      </div>
-      <div onClick={goNext} className="next-button">
-        <img src={navigator} alt='navigate-icon' />
+          <div onClick={goPrevious} className="previous-button">
+            <img src={navigator} alt='navigate-icon' />
+          </div>
+          <div onClick={goNext} className="next-button">
+            <img src={navigator} alt='navigate-icon' />
+          </div>
+        </div>
       </div>
     </div>
-    </>
   )
 }
 

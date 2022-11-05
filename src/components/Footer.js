@@ -3,18 +3,20 @@ import mapImage from '../assets/footer-image.png'
 const Footer = () => {
   return (
     <>
-      <div className="image-section">
-        <img src={mapImage} alt='footer-map' />
-      </div>
-      <div className="adress-section">
-        <div className="adress-header">
-          İletişim
+      <div className='footer-left'>
+        <div className="image-section">
+          <img src={mapImage} alt='footer-map' />
         </div>
-        <div className="adress-text">
-          Adres: Çifte Havuzlar Mah. Eski Londra Asfaltı Cad. Kuluçka Merkezi D2 Blok No: 151/1F İç Kapı No: 2B03 Esenler/İstanbul
-        </div>
-        <div className="adress-contact">
-          Email: bilgi@tesodev.com
+        <div className="adress-section">
+          <div className="adress-header">
+            İletişim
+          </div>
+          <div className="adress-text">
+            Adres: Çifte Havuzlar Mah. Eski Londra Asfaltı Cad. Kuluçka Merkezi D2 Blok No: 151/1F İç Kapı No: 2B03 Esenler/İstanbul
+          </div>
+          <div className="adress-contact">
+            Email: bilgi@tesodev.com
+          </div>
         </div>
       </div>
       <div className="map-section">

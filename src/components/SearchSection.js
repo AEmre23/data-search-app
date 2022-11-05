@@ -5,7 +5,7 @@ import searchIcon from '../assets/search.png'
 import locationIcon from '../assets/location.png'
 
 const SearchSection = () => {
-  const { inputValue, setInputValue, peopleData, setPeopleData, cloneData } = useContext(PeopleContext)
+  const { inputValue, setInputValue, peopleData } = useContext(PeopleContext)
   const searchInput = useRef()
   const search = useRef()
   const navigate = useNavigate()
@@ -26,32 +26,23 @@ const SearchSection = () => {
     }
     else navigate('/result') 
   }
-  const deleteLetter = (e) => {
-    if (e.key === "Backspace" || e.key === "Delete") {
-      setPeopleData(cloneData)
-    }
-  }
-  
-  useEffect(() => {
-    setPeopleData(peopleData.filter((each) => each[0].toLowerCase().includes(inputValue)))
-    if(inputValue.length===0) setPeopleData(cloneData)
-  }, [inputValue]);
-
 
   return (
     <div className='search-wrapper'>
       <div className="seach-container">
         <div className="search-header">Find in records</div>
         <form onChange={inputHandler} className="search-input">
-          <input onKeyDown={deleteLetter} autoFocus ref={searchInput} className='input-search' type='text' placeholder='...' />
+          <input autoFocus ref={searchInput} className='input-search' type='text' placeholder='...' />
           <button onClick={buttonHandler} className='submit-button' type='submit'>Search</button>
           <div className="search-icon">
             <img ref={search} src={searchIcon} alt='search-icon' />
           </div>
         </form>
-        {inputValue.length > 0 &&
-        <div className="search-result">
-            {peopleData.slice(0, 3).map((each, i) => (
+        {inputValue.length > 0 ?
+          <div className="search-result">
+            {peopleData.filter((val) => 
+              val[0].toLowerCase().includes(inputValue.trim().toLowerCase())
+            ).slice(0, 3).map((each, i) => (
             <div key={i} className="search-info">
               <div className="location-icon">
                 <img src={locationIcon} alt='location-icon' />
@@ -65,19 +56,24 @@ const SearchSection = () => {
               </div>
             </div>
             ))}
-            {peopleData.length > 3 &&
+            {peopleData.filter((val) => 
+              val[0].toLowerCase().includes(inputValue.trim().toLowerCase())
+            ).length > 3 &&
               <Link className="show-more-parent" to='result'>
                 <div className="show-more">
                   <div>Show more...</div>
                 </div>
               </Link>
             }
-            {peopleData.length === 0 &&
+            {peopleData.filter((val) => 
+              val[0].toLowerCase().includes(inputValue.trim().toLowerCase())
+            ).length === 0 &&
               <div className="no-result">
                 <div>No result...</div>
               </div>
             }
           </div>
+          : null
           }
       </div>
     </div>
